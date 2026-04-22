@@ -15,8 +15,9 @@ class CarSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def validate(self, data):
+        # validate date
         current_year = datetime.datetime.now().year
-        if data['year'] < 2020 or data['year'] > current_year + 1:
+        if data['year'] < 2020 or data['year'] > current_year:
             raise serializers.ValidationError({"year": "Invalid year of manufacture."})
 
         if len(data['vin']) != 17:
@@ -24,10 +25,10 @@ class CarSerializer(serializers.ModelSerializer):
 
         return data
 
+    # promotion for week rent
     def get_week_rate(self, obj):
         """
             10% less for week rate
         """
         week_price = obj.daily_rate * 7 * Decimal('0.9')
         return round(week_price, 2)
-

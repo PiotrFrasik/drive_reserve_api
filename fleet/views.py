@@ -9,4 +9,3 @@ class CarViewSet(viewsets.ReadOnlyModelViewSet):
     """
     queryset = Car.objects.all()
     serializer_class = CarSerializer
-

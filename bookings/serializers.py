@@ -39,6 +39,6 @@ class BookingSerializer(serializers.ModelSerializer):
         if days < 0:
             raise serializers.ValidationError({'end_date':'End date cannot be after current date'})
 
-        data['total_price'] = days * data['car'].status.daily_rate
+        data['total_price'] = days * data['car'].daily_rate
 
         return data

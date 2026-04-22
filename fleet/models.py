@@ -8,7 +8,8 @@ class Car(models.Model):
 
     vin = models.CharField(max_length=17,
                            unique=True)
-    license_plate = models.CharField(max_length=15)
+    license_plate = models.CharField(max_length=15,
+                                     unique=True)
     color = models.CharField(max_length=50)
 
     daily_rate = models.DecimalField(max_digits=10,
