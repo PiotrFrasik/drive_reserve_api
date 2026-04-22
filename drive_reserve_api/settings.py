@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'fleet.apps.FleetConfig',
     'rest_framework',
+    'bookings'
 ]
 
 MIDDLEWARE = [
