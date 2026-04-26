@@ -4,6 +4,8 @@ from rest_framework import serializers, status
 from bookings.models import Booking
 
 class BookingSerializer(serializers.ModelSerializer):
+    # show username field 
+    user = serializers.ReadOnlyField(source='user.username')
     class Meta:
         model = Booking
         fields = '__all__'
