@@ -4,6 +4,13 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from fleet.models import Car
 
 class Review(models.Model):
+    RATING_CHOICES = [
+        (1, '1 - Very Poor'),
+        (2, '2 - Poor'),
+        (3, '3 - Average'),
+        (4, '4 - Good'),
+        (5, '5 - Excellent'),
+    ]
     # relation to car
     car = models.ForeignKey(
         Car,
@@ -21,6 +28,8 @@ class Review(models.Model):
 
     # rating 1-5
     rating = models.PositiveIntegerField(
+        choices=RATING_CHOICES,
+        default=5,
         validators=[MinValueValidator(1), MaxValueValidator(5)],
     )
 
