@@ -2,6 +2,8 @@ import datetime
 from rest_framework import serializers
 from decimal import Decimal
 from fleet.models import Car
+from reviews.models import Review
+from django.db.models import Avg
 
 
 class CarSerializer(serializers.ModelSerializer):
@@ -10,6 +12,8 @@ class CarSerializer(serializers.ModelSerializer):
                                    read_only=True)
     #Rate for week with 10% less
     week_rate = serializers.SerializerMethodField()
+    average_rating = serializers.SerializerMethodField()
+
     class Meta:
         model = Car
         fields = '__all__'
@@ -32,3 +36,12 @@ class CarSerializer(serializers.ModelSerializer):
         """
         week_price = obj.daily_rate * 7 * Decimal('0.9')
         return round(week_price, 2)
+
+    # logic of calculating the average
+    def get_average_rating(self, obj):
+        avg = obj.reviews.aggregate(Avg('rating'))['rating__avg']
+
+        if avg is None:
+            return 0
+
+        return round(avg, 1)
