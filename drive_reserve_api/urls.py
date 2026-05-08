@@ -22,6 +22,7 @@ from bookings.views import BookingViewSet
 from fleet.views import CarViewSet
 from reviews.views import ReviewViewSet
 from .views import root_redirect
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 router = DefaultRouter()
 router.register(r'bookings', BookingViewSet)
@@ -32,4 +33,6 @@ urlpatterns = [
     path('', root_redirect),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
 ]
