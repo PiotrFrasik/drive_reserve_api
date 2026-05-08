@@ -21,6 +21,7 @@ from rest_framework.routers import DefaultRouter
 from bookings.views import BookingViewSet
 from fleet.views import CarViewSet
 from reviews.views import ReviewViewSet
+from .views import root_redirect
 
 router = DefaultRouter()
 router.register(r'bookings', BookingViewSet)
@@ -28,6 +29,7 @@ router.register(r'cars', CarViewSet)
 router.register(r'reviews', ReviewViewSet)
 
 urlpatterns = [
+    path('', root_redirect),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
 ]
